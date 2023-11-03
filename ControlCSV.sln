@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVSolver", "CSVSolver\CSVSolver.csproj", "{5B7463C7-1D6C-4027-ABC9-B438A2CF66F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibCSV", "LibCSV\LibCSV.csproj", "{93B33629-6C59-4144-8033-051BDB216B96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{5B7463C7-1D6C-4027-ABC9-B438A2CF66F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B7463C7-1D6C-4027-ABC9-B438A2CF66F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B7463C7-1D6C-4027-ABC9-B438A2CF66F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B33629-6C59-4144-8033-051BDB216B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B33629-6C59-4144-8033-051BDB216B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B33629-6C59-4144-8033-051BDB216B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B33629-6C59-4144-8033-051BDB216B96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
