@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVSolver", "CSVSolver\CSVS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibCSV", "LibCSV\LibCSV.csproj", "{93B33629-6C59-4144-8033-051BDB216B96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibUtils", "LibUtils\LibUtils.csproj", "{9AB7C1E5-D32E-4294-A98E-06149612A179}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{93B33629-6C59-4144-8033-051BDB216B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93B33629-6C59-4144-8033-051BDB216B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93B33629-6C59-4144-8033-051BDB216B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AB7C1E5-D32E-4294-A98E-06149612A179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB7C1E5-D32E-4294-A98E-06149612A179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB7C1E5-D32E-4294-A98E-06149612A179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB7C1E5-D32E-4294-A98E-06149612A179}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
