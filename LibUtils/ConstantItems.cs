@@ -1,6 +1,6 @@
 ﻿namespace LibUtils;
 
-public class ConstantItems
+public static class ConstantItems
 {
     // 100 - OK | 200 - Error.
     public static readonly int[] KeyCodes = { 100, 200 };
