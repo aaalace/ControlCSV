@@ -6,11 +6,11 @@ public static class CsvProcessing
 {
     private static string fPath = string.Empty;
     
-    public static string[] Read(in string path, out int dataKeyCode)
+    public static string[] Read(in string path, out int dataStatus)
     {
         fPath = path;
         string[] arr = Array.Empty<string>();
-        dataKeyCode = ConstantItems.KeyCodes[0];
+        dataStatus = ConstantItems.StatusOk;
         
         try
         {
@@ -18,7 +18,7 @@ public static class CsvProcessing
         }
         catch (ArgumentNullException e)
         {
-            dataKeyCode = 200;
+            dataStatus = ConstantItems.StatusError;
             ConsoleInteraction.MessagesWriter(e.Message, 2);
         }
 

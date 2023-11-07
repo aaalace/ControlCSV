@@ -2,9 +2,10 @@
 
 public static class ConstantItems
 {
-    // 100 - OK | 200 - Error.
-    public static readonly int[] KeyCodes = { 100, 200 };
-    
+    // Status codes.
+    public const int StatusOk = 100;
+    public const int StatusError = 200;
+
     // Colors of different console states
     public static readonly ConsoleColor[] ConsoleColors = 
     { 
@@ -12,4 +13,7 @@ public static class ConstantItems
         ConsoleColor.Green,
         ConsoleColor.Red
     };
+
+    public const int StopMenuCycleAndSaveOption = 6;
+    public const int StopMenuCycleOption = 7;
 }

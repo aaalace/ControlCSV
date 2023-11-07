@@ -8,7 +8,7 @@ public static class ConsoleInteraction
         Console.ForegroundColor = ConstantItems.ConsoleColors[colorCode];
         Console.Write(message);
         Console.Write(Environment.NewLine);
-        Console.ForegroundColor = ConstantItems.ConsoleColors[0];
+        Console.ResetColor();
     }
     
     // Gets and checks user's typed path on null.
@@ -20,10 +20,10 @@ public static class ConsoleInteraction
         if (inputPath != null)
         {
             path = inputPath;
-            return ConstantItems.KeyCodes[0];
+            return ConstantItems.StatusOk;
         }
         MessagesWriter(ErrorMessages.PathError, 2);
-        return ConstantItems.KeyCodes[1];
+        return ConstantItems.StatusError;
     }
 
     // Gets and checks user's choice in menu on type and value.
@@ -36,14 +36,14 @@ public static class ConsoleInteraction
         if (!choiceCorrectTypeState)
         {
             MessagesWriter(ErrorMessages.MenuTypeError, 2);
-            return ConstantItems.KeyCodes[1];
+            return ConstantItems.StatusError;
         }
-        // User can choose only 5 options in menu
-        if (menuChoice < 1 | menuChoice > 5)
+        // User can choose only 6 options in menu
+        if (menuChoice < 1 | menuChoice > 6)
         {
             MessagesWriter(ErrorMessages.MenuAreaError, 2);
-            return ConstantItems.KeyCodes[1];
+            return ConstantItems.StatusError;
         }
-        return ConstantItems.KeyCodes[0];
+        return ConstantItems.StatusOk;
     }
 }
