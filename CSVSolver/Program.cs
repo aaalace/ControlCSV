@@ -7,47 +7,39 @@ public static class Program
 {
     public static void Main()
     {
-        do
+        while (true)
         {
-            int pathKeyCode = AbsolutePathExpect(out string? path);
+            // Calls get path method and checks for its state.
+            int pathKeyCode = ConsoleInteraction.GetAbsolutePath(out string path);
             if (pathKeyCode == ConstantItems.KeyCodes[1])
             {
-                ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint);
+                continue;
+            }
+
+            // Calls read data from csv method and checks for its state.
+            string[] fileData = CsvProcessing.Read(in path, out int dataKeyCode);
+            if (dataKeyCode == ConstantItems.KeyCodes[1])
+            {
                 continue;
             }
             
-            int menuKeyCode = Menu(out int menuChoice);
-            if (menuKeyCode == ConstantItems.KeyCodes[1])
+            do
             {
-                ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint);
-                continue;
-            }
+                // Calls get choice from menu method and checks for its state.
+                int menuKeyCode = ConsoleInteraction.GetMenuChoice(out int menuChoice);
+                if (menuKeyCode == ConstantItems.KeyCodes[1])
+                {
+                    continue;
+                }
+                if (menuChoice == 6)
+                {
+                    ConsoleInteraction.MessagesWriter("finished correct");
+                    // ОРГАНИЗОВАТЬ ЗДЕСЬ ВЫХОД ИЗ ПРОГРАММЫ В ЦЕЛОМ
+                    break;
+                }
+            } while (true);
 
-            Console.WriteLine($"{path} | {menuChoice}");
-            ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint);
-
-        } while (Console.ReadKey(true).Key != ConsoleKey.Q);
-    }
-
-    private static int AbsolutePathExpect(out string? path)
-    {
-        ConsoleInteraction.MessagesWriter(SystemMessages.BeforePathGetting);
-        int keyCode = ConsoleInteraction.GetAbsolutePath(out path);
-        if (keyCode == ConstantItems.KeyCodes[1])
-        {
-            ConsoleInteraction.MessagesWriter(ErrorMessages.PathError, 2);
+            Console.WriteLine("to be continued");
         }
-        return keyCode;
-    }
-
-    private static int Menu(out int menuChoice)
-    {
-        ConsoleInteraction.MessagesWriter(SystemMessages.BeforeMenuChoice);
-        int keyCode = ConsoleInteraction.GetMenuChoice(out menuChoice);
-        if (keyCode == ConstantItems.KeyCodes[1])
-        {
-            ConsoleInteraction.MessagesWriter(ErrorMessages.MenuError, 2);
-        }
-        return keyCode;
     }
 }
