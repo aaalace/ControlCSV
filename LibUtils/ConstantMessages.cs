@@ -4,8 +4,8 @@
 public static class SystemMessages
 {
     public const string ExitPoint = "Press Q to finish | Press any other key to continue";
-    public const string BeforePathGetting = "Type absolute path";
-    public const string BeforeFileNameGetting = "Type filename";
+    public const string BeforePathGetting = "Type absolute path:";
+    public const string BeforeFileNameGetting = "Type filename:";
     public const string MenuChoices = "Menu:\n" + 
                                       "1. Select by CoverageArea\n" +
                                       "2. Select by ParkName\n" +

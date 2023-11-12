@@ -73,6 +73,7 @@ public static class CsvProcessing
     {
         try
         {
+            File.WriteAllText(fPath, string.Empty);
             File.WriteAllLines(fPath, contents: data);
         }
         catch (Exception)
@@ -134,7 +135,7 @@ public static class CsvProcessing
             remadeArr = new string[noHeadersArr.Length][];
             for (int i = 0; i < noHeadersArr.Length; i++)
             {
-                string[] timedArr = noHeadersArr[i].Split(';');
+                string[] timedArr = noHeadersArr[i].Split(';')[..^1];
                 for (int j = 0; j < timedArr.Length; j++)
                 {
                     timedArr[j] = timedArr[j].Trim(new char[] { '"' });
@@ -160,16 +161,25 @@ public static class CsvProcessing
         try
         {
             remadeArr = new string[arr.Length + 2];
-            remadeArr[0] = string.Join(';', ConstantItems.initHeadRowEn);
-            remadeArr[1] = string.Join(';', ConstantItems.initHeadRowRu);;
-            for (int i = 0; i < arr.Length; i++)
+            
+            string[] helpWithEn = new string[ConstantItems.initHeadRowEn.Length];
+            string[] helpWithRu = new string[ConstantItems.initHeadRowRu.Length];
+            for (int i = 0; i < helpWithEn.Length; i++)
             {
-                string[] timedArr = new string[arr[i].Length];
+                helpWithEn[i] = '"' + ConstantItems.initHeadRowEn[i] + '"';
+                helpWithRu[i] = '"' + ConstantItems.initHeadRowRu[i] + '"';
+            }
+            remadeArr[0] = string.Join(';', helpWithEn);
+            remadeArr[1] = string.Join(';', helpWithRu);;
+            
+            for (int i = 2; i < remadeArr.Length; i++)
+            {
+                string[] timedArr = new string[arr[i - 2].Length];
                 for (int j = 0; j < timedArr.Length; j++)
                 {
-                    timedArr[j] = '"' + arr[i][j] + '"';
+                    timedArr[j] = '"' + arr[i - 2][j] + '"';
                 }
-                remadeArr[i] = string.Join(';', timedArr);
+                remadeArr[i] = string.Join(';', timedArr) + ";";
             }
         }
         catch (Exception)

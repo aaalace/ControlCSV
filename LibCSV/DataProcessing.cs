@@ -8,10 +8,17 @@ public static class DataProcessing
     {
         string[][] resultData = Array.Empty<string[]>();
         
-        string covAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionState);
-        if (selectionState == ConstantItems.StatusOk)
+        try
         {
-            resultData = data.Where(x => x[7] == covAreaInput).ToArray();
+            string covAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionState);
+            if (selectionState == ConstantItems.StatusOk)
+            {
+                resultData = data.Where(x => x[7] == covAreaInput).ToArray();
+            }
+        }
+        catch (Exception)
+        {
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongCoverageAreaChoosing);
         }
         
         return resultData;
@@ -21,10 +28,17 @@ public static class DataProcessing
     {
         string[][] resultData = Array.Empty<string[]>();
         
-        string parkNameInput = ConsoleInteraction.GetStringForSelection(out int selectionState);
-        if (selectionState == ConstantItems.StatusOk)
+        try
         {
-            resultData = data.Where(x => x[5] == parkNameInput).ToArray();
+            string parkNameInput = ConsoleInteraction.GetStringForSelection(out int selectionState);
+            if (selectionState == ConstantItems.StatusOk)
+            {
+                resultData = data.Where(x => x[5] == parkNameInput).ToArray();
+            }
+        }
+        catch (Exception)
+        {
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongParkNameChoosing);
         }
         
         return resultData;
@@ -33,12 +47,19 @@ public static class DataProcessing
     public static string[][] AdmAndCoverageAreaChoosing(string[][] data)
     {
         string[][] resultData = Array.Empty<string[]>();
-
-        string admAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionAdmState);
-        string covAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionCovState);
-        if (selectionAdmState == ConstantItems.StatusOk & selectionCovState == ConstantItems.StatusOk)
+        
+        try
         {
-            resultData = data.Where(x => x[3] == admAreaInput & x[7] == covAreaInput).ToArray();
+            string admAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionAdmState);
+            string covAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionCovState);
+            if (selectionAdmState == ConstantItems.StatusOk & selectionCovState == ConstantItems.StatusOk)
+            {
+                resultData = data.Where(x => x[3] == admAreaInput & x[7] == covAreaInput).ToArray();
+            }
+        }
+        catch (Exception)
+        {
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongAdmAndCoverageAreaChoosing);
         }
         
         return resultData;
@@ -50,7 +71,7 @@ public static class DataProcessing
         
         try
         {
-            resultData = data[2..].OrderBy(entry => entry[2]).ToArray();
+            resultData = data.OrderBy(entry => entry[2]).ToArray();
         }
         catch (Exception)
         {
@@ -64,7 +85,7 @@ public static class DataProcessing
         string[][] resultData = Array.Empty<string[]>();
         try
         {
-            resultData = data[2..].OrderBy(entry => int.Parse(entry[7])).ToArray();
+            resultData = data.OrderBy(entry => int.Parse(entry[7])).ToArray();
         }
         catch (Exception)
         {

@@ -59,13 +59,6 @@ public static class Program
                         
                         CsvProcessing.Write(pushData);
                     }
-                    
-                    // int nPathGettingStatus = ConsoleInteraction.GetNPath(out string nPath);
-                    // if (nPathGettingStatus == ConstantItems.StatusError)
-                    // {
-                    //     break;
-                    // }
-                    
                     break;
                 }
                 
