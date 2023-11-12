@@ -8,11 +8,13 @@ public static class SystemMessages
     public const string MenuChoices = "Menu:\n" + 
                                       "1. Select by CoverageArea\n" +
                                       "2. Select by ParkName\n" +
-                                      "3. Select by AdmArea and CoverageArea\n" +
+                                      "3. Select by AdmArea (1st input) and CoverageArea (2nd input)\n" +
                                       "4. Sort by Name (alphabetical order)\n" +
                                       "5. Sort by CoverageArea (increasing order)\n" +
                                       "6. Close and save current file\n" +
                                       "7. Close current file !without save!";
+    public const string BeforeSelection = "Value for selection:";
+    public const string EmptyResult = "The set of current values is empty";
 }
 
 public static class ErrorMessages
@@ -26,6 +28,7 @@ public static class ErrorMessages
     public const string WrongPathWhileReadError = "Incorrect path";
     public const string WrongRemakeData = "Error in remake data";
     public const string DataRefactorError = "Error in refactor data";
+    public const string SelectionError = "Error in selection";
     
     public const string WrongCoverageAreaChoosing = "Error in choosing by CoverageArea";
     public const string WrongParkNameChoosing = "Error in choosing by Name";

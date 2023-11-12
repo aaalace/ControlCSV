@@ -1,4 +1,5 @@
-﻿using LibUtils;
+﻿using System.Text;
+using LibUtils;
 
 namespace LibCSV;
 
@@ -21,7 +22,7 @@ public static class CsvProcessing
             try
             {
                 // If ReadAllLines throws FileNotFoundEx -> throws ArgumentNullEx.
-                initArray = File.ReadAllLines(fPath);
+                initArray = File.ReadAllLines(fPath, encoding: Encoding.UTF8);
                 
                 // If input path != GetFullPath, but input path exists, then it is not full path.
                 if (fPath != Path.GetFullPath(fPath))

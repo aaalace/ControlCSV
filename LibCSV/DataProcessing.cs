@@ -4,20 +4,45 @@ namespace LibCSV;
 
 public static class DataProcessing
 {
-    // public static string[][] CoverageAreaChoosing(string[][] data)
-    // {
-    //     
-    // }
-    //
-    // public static string[][] ParkNameChoosing(string[][] data)
-    // {
-    //     
-    // }
-    //
-    // public static string[][] AdmAndCoverageAreaChoosing(string[][] data)
-    // {
-    //     
-    // }
+    public static string[][] CoverageAreaChoosing(string[][] data)
+    {
+        string[][] resultData = Array.Empty<string[]>();
+        
+        string covAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionState);
+        if (selectionState == ConstantItems.StatusOk)
+        {
+            resultData = data.Where(x => x[7] == covAreaInput).ToArray();
+        }
+        
+        return resultData;
+    }
+    
+    public static string[][] ParkNameChoosing(string[][] data)
+    {
+        string[][] resultData = Array.Empty<string[]>();
+        
+        string parkNameInput = ConsoleInteraction.GetStringForSelection(out int selectionState);
+        if (selectionState == ConstantItems.StatusOk)
+        {
+            resultData = data.Where(x => x[5] == parkNameInput).ToArray();
+        }
+        
+        return resultData;
+    }
+    
+    public static string[][] AdmAndCoverageAreaChoosing(string[][] data)
+    {
+        string[][] resultData = Array.Empty<string[]>();
+
+        string admAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionAdmState);
+        string covAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionCovState);
+        if (selectionAdmState == ConstantItems.StatusOk & selectionCovState == ConstantItems.StatusOk)
+        {
+            resultData = data.Where(x => x[3] == admAreaInput & x[7] == covAreaInput).ToArray();
+        }
+        
+        return resultData;
+    }
     
     public static string[][] NameSorting(string[][] data)
     {

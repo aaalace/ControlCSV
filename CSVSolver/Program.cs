@@ -45,7 +45,7 @@ public static class Program
                     continue;
                 }
                 
-                // StopMenuAndSaveOption = const; StopMenuOption = const + 1.
+                // StopMenuAndSaveOption = 6; StopMenuOption = 7.
                 if (menuChoice >= ConstantItems.StopMenuAndSaveOption)
                 {
                     if (menuChoice == ConstantItems.StopMenuAndSaveOption)
@@ -69,27 +69,16 @@ public static class Program
     {
         public static string[][] Manage(in int menuChoice, in string[][] data)
         {
-            string[][] resultData = Array.Empty<string[]>();
-            
-            switch (menuChoice)
+            string[][] resultData = menuChoice switch
             {
-                case 1:
-                    // DataProcessing.CoverageAreaChoosing(data);
-                    break;
-                case 2:
-                    // DataProcessing.ParkNameChoosing(data);
-                    break;
-                case 3:
-                    // DataProcessing.AdmAndCoverageAreaChoosing(data);
-                    break;
-                case 4:
-                    resultData = DataProcessing.NameSorting(data);
-                    break;
-                case 5:
-                    resultData = DataProcessing.CoverageAreaSorting(data);
-                    break;
-            }
-            
+                1 => DataProcessing.CoverageAreaChoosing(data),
+                2 => DataProcessing.ParkNameChoosing(data),
+                3 => DataProcessing.AdmAndCoverageAreaChoosing(data),
+                4 => DataProcessing.NameSorting(data),
+                5 => DataProcessing.CoverageAreaSorting(data),
+                _ => Array.Empty<string[]>()
+            };
+
             return resultData;
         }
     }

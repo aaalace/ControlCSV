@@ -4,15 +4,6 @@ namespace LibUtils;
 
 public static class ConsoleInteraction
 {
-    // Custom message writer. Paints message in different color depending on colorCode.
-    public static void MessagesWriter(string message, int colorCode = 0)
-    {
-        Console.ForegroundColor = ConstantItems.ConsoleColors[colorCode];
-        Console.Write(message);
-        Console.Write(Environment.NewLine);
-        Console.ResetColor();
-    }
-    
     // Gets and checks user's typed path on null.
     public static int GetAbsolutePath(out string path)
     {
@@ -39,6 +30,7 @@ public static class ConsoleInteraction
             MessagesWriter(ErrorMessages.MenuTypeError, 2);
             return ConstantItems.StatusError;
         }
+        
         // User can choose only 7 options in menu
         if (menuChoice < 1 | menuChoice > 7)
         {
@@ -48,11 +40,42 @@ public static class ConsoleInteraction
         return ConstantItems.StatusOk;
     }
 
+    
+    // Gets value for selection (1 - 3 menu options).
+    public static string GetStringForSelection(out int selectionState)
+    {
+        selectionState = ConstantItems.StatusOk;
+        MessagesWriter(SystemMessages.BeforeSelection);
+        
+        string? returnString = Console.ReadLine();
+        if (returnString == null)
+        {
+            returnString = "";
+            selectionState = ConstantItems.StatusError;
+            MessagesWriter(ErrorMessages.SelectionError, 2);
+        };
+        return returnString;
+    }
+    
+    // Custom message writer. Paints message in different color depending on colorCode.
+    public static void MessagesWriter(string message, int colorCode = 0)
+    {
+        Console.ForegroundColor = ConstantItems.ConsoleColors[colorCode];
+        Console.Write(message);
+        Console.Write(Environment.NewLine);
+        Console.ResetColor();
+    }
+
     // Writes data in console.
     public static void PrintData(in string[][] data)
     {
         try
         {
+            if (data.Length == 0)
+            {
+                MessagesWriter(SystemMessages.EmptyResult, 2);
+                return;
+            } 
             // English header.
             for (int i = 0; i < ConstantItems.initHeadRowEn.Length; i++)
             {
@@ -63,7 +86,6 @@ public static class ConsoleInteraction
                 Console.ResetColor();
                 Console.Write(separator);
             }
-            Console.Write(Environment.NewLine);
         
             // Russian header.
             for (int i = 0; i < ConstantItems.initHeadRowRu.Length; i++)
@@ -75,7 +97,6 @@ public static class ConsoleInteraction
                 Console.ResetColor();
                 Console.Write(separator);
             }
-            Console.Write(Environment.NewLine);
         
             // Formatted data in table.
             foreach (string[] row in data)
