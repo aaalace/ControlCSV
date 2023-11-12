@@ -67,6 +67,31 @@ public static class CsvProcessing
         }
 
         return initArray;
+    }   
+
+    public static void Write(string[] data)
+    {
+        try
+        {
+            File.WriteAllLines(fPath, contents: data);
+        }
+        catch (Exception)
+        {
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WriteError, 2);
+        }
+    }
+    
+    public static void Write(string strData, string nPath)
+    {
+        try
+        {
+            File.AppendAllText(nPath, contents: Environment.NewLine);
+            File.AppendAllText(nPath, contents: strData);
+        }
+        catch (Exception)
+        {
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WriteError, 2);
+        }
     }
     
     // 1) Not only headers in csv; 2) Headers structure correct; 3) Number of elements in row correct.
@@ -123,6 +148,36 @@ public static class CsvProcessing
             ConsoleInteraction.MessagesWriter(ErrorMessages.WrongRemakeData, 2);
         }
 
+        return remadeArr;
+    }
+
+    // Remake string[][] to string[]; 
+    public static string[] RemakeDataBack(in string[][] arr, out int remakeBackStatus)
+    {
+        string[] remadeArr = Array.Empty<string>();
+        remakeBackStatus = ConstantItems.StatusOk;
+
+        try
+        {
+            remadeArr = new string[arr.Length + 2];
+            remadeArr[0] = string.Join(';', ConstantItems.initHeadRowEn);
+            remadeArr[1] = string.Join(';', ConstantItems.initHeadRowRu);;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                string[] timedArr = new string[arr[i].Length];
+                for (int j = 0; j < timedArr.Length; j++)
+                {
+                    timedArr[j] = '"' + arr[i][j] + '"';
+                }
+                remadeArr[i] = string.Join(';', timedArr);
+            }
+        }
+        catch (Exception)
+        {
+            ConsoleInteraction.MessagesWriter(ErrorMessages.UnexpectedError, 2);
+            remakeBackStatus = ConstantItems.StatusOk;
+        }
+        
         return remadeArr;
     }
 }

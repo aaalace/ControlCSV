@@ -28,7 +28,7 @@ public static class Program
                 continue;
             }
             
-            // Changes data format, workData - data without headers, maxCellSizes - max length of element in column.
+            // Changes data format, workData - data without headers.
             string[][] workData = CsvProcessing.RemakeData(in initialData, out int remakeStatus);
             if (remakeStatus == ConstantItems.StatusError)
             {
@@ -50,9 +50,22 @@ public static class Program
                 {
                     if (menuChoice == ConstantItems.StopMenuAndSaveOption)
                     {
-                        Console.WriteLine("ResultDataSaved" + resultData);
-                        // TODO: CsvProcessing.Write();
+                        // Changes data format back.
+                        string[] pushData = CsvProcessing.RemakeDataBack(in resultData, out int remakeBackStatus);
+                        if (remakeBackStatus == ConstantItems.StatusError)
+                        {
+                            break;
+                        }
+                        
+                        CsvProcessing.Write(pushData);
                     }
+                    
+                    // int nPathGettingStatus = ConsoleInteraction.GetNPath(out string nPath);
+                    // if (nPathGettingStatus == ConstantItems.StatusError)
+                    // {
+                    //     break;
+                    // }
+                    
                     break;
                 }
                 

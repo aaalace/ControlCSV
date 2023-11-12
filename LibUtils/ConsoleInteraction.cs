@@ -18,6 +18,21 @@ public static class ConsoleInteraction
         MessagesWriter(ErrorMessages.PathError, 2);
         return ConstantItems.StatusError;
     }
+    
+    // Gets nPath.
+    public static int GetNPath(out string nPath)
+    {
+        MessagesWriter(SystemMessages.BeforeFileNameGetting);
+        nPath = string.Empty;
+        string? inputPath = Console.ReadLine();
+        if (inputPath != null)
+        {
+            nPath = inputPath;
+            return ConstantItems.StatusOk;
+        }
+        MessagesWriter(ErrorMessages.PathError, 2);
+        return ConstantItems.StatusError;
+    }
 
     // Gets and checks user's choice in menu on type and value.
     public static int GetMenuChoice(out int menuChoice)
