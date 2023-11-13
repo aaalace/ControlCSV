@@ -18,7 +18,7 @@ public static class DataProcessing
         }
         catch (Exception)
         {
-            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongCoverageAreaChoosing);
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongCoverageAreaChoosing, 2);
         }
         
         return resultData;
@@ -38,7 +38,7 @@ public static class DataProcessing
         }
         catch (Exception)
         {
-            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongParkNameChoosing);
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongParkNameChoosing, 2);
         }
         
         return resultData;
@@ -50,8 +50,8 @@ public static class DataProcessing
         
         try
         {
-            string admAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionAdmState);
-            string covAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionCovState);
+            string admAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionAdmState, " (AdmArea)");
+            string covAreaInput = ConsoleInteraction.GetStringForSelection(out int selectionCovState, " (CovArea)");
             if (selectionAdmState == ConstantItems.StatusOk & selectionCovState == ConstantItems.StatusOk)
             {
                 resultData = data.Where(x => x[3] == admAreaInput & x[7] == covAreaInput).ToArray();
@@ -59,7 +59,7 @@ public static class DataProcessing
         }
         catch (Exception)
         {
-            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongAdmAndCoverageAreaChoosing);
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongAdmAndCoverageAreaChoosing, 2);
         }
         
         return resultData;
@@ -75,7 +75,7 @@ public static class DataProcessing
         }
         catch (Exception)
         {
-            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongNameSorting);
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongNameSorting, 2);
         }
         return resultData;
     }
@@ -89,7 +89,7 @@ public static class DataProcessing
         }
         catch (Exception)
         {
-            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongCoverageAreaSorting);
+            ConsoleInteraction.MessagesWriter(ErrorMessages.WrongCoverageAreaSorting, 2);
         }
         return resultData;
     }

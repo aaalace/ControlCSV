@@ -10,17 +10,15 @@ public static class ConstantItems
     public static readonly ConsoleColor[] ConsoleColors = 
     { 
         ConsoleColor.White, 
-        ConsoleColor.Green,
+        ConsoleColor.DarkYellow,
         ConsoleColor.Red
     };
 
     public static readonly ConsoleColor[] CellColors =
     {
         ConsoleColor.DarkGreen,
-        ConsoleColor.DarkYellow,
-        ConsoleColor.DarkBlue,
         ConsoleColor.DarkMagenta,
-        ConsoleColor.DarkRed,
+        ConsoleColor.DarkBlue,
     };
 
     public const int StopMenuAndSaveOption = 6;
@@ -31,4 +29,11 @@ public static class ConstantItems
     public static string[] initHeadRowRu = {"Код", "global_id", "Наименование", "Административный округ по адресу", 
         "Район", "Наименование парка", "Имя Wi-Fi сети", "Зона покрытия (метры)", "Признак функционирования", 
         "Условия доступа", "Пароль", "Долгота в WGS-84", "Широта в WGS-84", "geodata_center", "geoarea"};
+
+    public static int[][] visibleOptions = { new[]{ 0, 1, 2, 7 }, 
+        new[] { 0, 1, 2, 5 }, 
+        new[] { 0, 1, 2, 3, 7 }, 
+        new[] { 0, 1, 2 },
+        new[]{ 0, 1, 2, 7 }
+    };
 }

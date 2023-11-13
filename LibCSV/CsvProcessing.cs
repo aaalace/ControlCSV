@@ -6,11 +6,11 @@ namespace LibCSV;
 public static class CsvProcessing
 {
     private static string fPath = string.Empty;
-    
+
     // Custom exceptions
     private class WrongStructureException : Exception { }
     private class NotFullPathException : Exception { }
-    
+
     public static string[] Read(in string path, out int dataStatus)
     {
         string[] initArray = Array.Empty<string>();
@@ -23,7 +23,7 @@ public static class CsvProcessing
             {
                 // If ReadAllLines throws FileNotFoundEx -> throws ArgumentNullEx.
                 initArray = File.ReadAllLines(fPath, encoding: Encoding.UTF8);
-                
+
                 // If input path != GetFullPath, but input path exists, then it is not full path.
                 if (fPath != Path.GetFullPath(fPath))
                 {
@@ -67,7 +67,7 @@ public static class CsvProcessing
         }
 
         return initArray;
-    }   
+    }
 
     public static void Write(string[] data)
     {
@@ -81,20 +81,37 @@ public static class CsvProcessing
             ConsoleInteraction.MessagesWriter(ErrorMessages.WriteError, 2);
         }
     }
-    
+
     public static void Write(string strData, string nPath)
     {
         try
         {
-            File.AppendAllText(nPath, contents: Environment.NewLine);
-            File.AppendAllText(nPath, contents: strData);
+            if (File.Exists(nPath))
+            {
+                using StreamWriter file = new(nPath, append: true);
+                file.WriteLine(strData);
+                return;
+            }
+            string[] remadeArr = new string[3];
+            string[] helpWithEn = new string[ConstantItems.initHeadRowEn.Length];
+            string[] helpWithRu = new string[ConstantItems.initHeadRowRu.Length];
+            for (int i = 0; i < helpWithEn.Length; i++)
+            {
+                helpWithEn[i] = '"' + ConstantItems.initHeadRowEn[i] + '"';
+                helpWithRu[i] = '"' + ConstantItems.initHeadRowRu[i] + '"';
+            }
+            remadeArr[0] = string.Join(';', helpWithEn) + ";";
+            remadeArr[1] = string.Join(';', helpWithRu) + ";";
+            remadeArr[2] = strData;
+            File.WriteAllLines(nPath, contents: remadeArr);
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Console.Write(e);
             ConsoleInteraction.MessagesWriter(ErrorMessages.WriteError, 2);
         }
     }
-    
+
     // 1) Not only headers in csv; 2) Headers structure correct; 3) Number of elements in row correct.
     private static bool CheckFileStructure(string[] arr)
     {
@@ -109,9 +126,9 @@ public static class CsvProcessing
 
         for (int i = 0; i < rowLen; i++)
         {
-            string trimRowEn = headRowEn[i].Trim(new char[] { '"' });
-            string trimRowRu = headRowRu[i].Trim(new char[] { '"' });
-            
+            string trimRowEn = headRowEn[i].Trim(new[] { '"' });
+            string trimRowRu = headRowRu[i].Trim(new[] { '"' });
+
             if (trimRowEn != ConstantItems.initHeadRowEn[i] |
                 trimRowRu != ConstantItems.initHeadRowRu[i])
             {
@@ -119,7 +136,7 @@ public static class CsvProcessing
             }
         }
 
-        return arr[2..].Select(row => row.Split(';').Where(x => 
+        return arr[2..].Select(row => row.Split(';').Where(x =>
             !string.IsNullOrEmpty(x)).ToArray()).All(timedArr => timedArr.Length == rowLen);
     }
 
@@ -128,7 +145,7 @@ public static class CsvProcessing
     {
         string[][] remadeArr = Array.Empty<string[]>();
         remakeStatus = ConstantItems.StatusOk;
-        
+
         try
         {
             string[] noHeadersArr = arr[2..];
@@ -138,7 +155,7 @@ public static class CsvProcessing
                 string[] timedArr = noHeadersArr[i].Split(';')[..^1];
                 for (int j = 0; j < timedArr.Length; j++)
                 {
-                    timedArr[j] = timedArr[j].Trim(new char[] { '"' });
+                    timedArr[j] = timedArr[j].Trim(new[] { '"' });
                 }
                 remadeArr[i] = timedArr;
             }
@@ -161,7 +178,7 @@ public static class CsvProcessing
         try
         {
             remadeArr = new string[arr.Length + 2];
-            
+
             string[] helpWithEn = new string[ConstantItems.initHeadRowEn.Length];
             string[] helpWithRu = new string[ConstantItems.initHeadRowRu.Length];
             for (int i = 0; i < helpWithEn.Length; i++)
@@ -169,9 +186,9 @@ public static class CsvProcessing
                 helpWithEn[i] = '"' + ConstantItems.initHeadRowEn[i] + '"';
                 helpWithRu[i] = '"' + ConstantItems.initHeadRowRu[i] + '"';
             }
-            remadeArr[0] = string.Join(';', helpWithEn);
-            remadeArr[1] = string.Join(';', helpWithRu);;
-            
+            remadeArr[0] = string.Join(';', helpWithEn) + ";";
+            remadeArr[1] = string.Join(';', helpWithRu) + ";";
+
             for (int i = 2; i < remadeArr.Length; i++)
             {
                 string[] timedArr = new string[arr[i - 2].Length];
@@ -187,7 +204,7 @@ public static class CsvProcessing
             ConsoleInteraction.MessagesWriter(ErrorMessages.UnexpectedError, 2);
             remakeBackStatus = ConstantItems.StatusOk;
         }
-        
+
         return remadeArr;
     }
 }

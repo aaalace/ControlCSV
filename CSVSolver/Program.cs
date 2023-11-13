@@ -16,7 +16,7 @@ public static class Program
             int pathStatus = ConsoleInteraction.GetAbsolutePath(out string path);
             if (pathStatus == ConstantItems.StatusError)
             {
-                ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint);
+                ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint, 1);
                 continue;
             }
 
@@ -24,7 +24,7 @@ public static class Program
             string[] initialData = CsvProcessing.Read(in path, out int dataStatus);
             if (dataStatus == ConstantItems.StatusError)
             {
-                ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint);
+                ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint, 1);
                 continue;
             }
             
@@ -32,7 +32,7 @@ public static class Program
             string[][] workData = CsvProcessing.RemakeData(in initialData, out int remakeStatus);
             if (remakeStatus == ConstantItems.StatusError)
             {
-                ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint);
+                ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint, 1);
                 continue;
             }
             
@@ -45,7 +45,7 @@ public static class Program
                     continue;
                 }
                 
-                // StopMenuAndSaveOption = 6; StopMenuOption = 7.
+                // StopMenuAndSaveOption = 7; StopMenuOption = 8.
                 if (menuChoice >= ConstantItems.StopMenuAndSaveOption)
                 {
                     if (menuChoice == ConstantItems.StopMenuAndSaveOption)
@@ -57,17 +57,30 @@ public static class Program
                             break;
                         }
                         
-                        CsvProcessing.Write(pushData);
+                        // If pushData contains 1 row (not including headers) then Write(string) else Write(string[]);
+                        switch (pushData.Length)
+                        {
+                            case < 3:
+                                ConsoleInteraction.MessagesWriter(ErrorMessages.CantSaveEmpty, 2);
+                                break;
+                            case 3:
+                                string nPath = ConsoleInteraction.GetNPath();
+                                CsvProcessing.Write(pushData[2], nPath);
+                                break;
+                            case > 3:
+                                CsvProcessing.Write(pushData);
+                                break;
+                        }
                     }
                     break;
                 }
                 
                 // Launches task in addition of menuChoice (1 - 5).
                 resultData = TaskManager.Manage(in menuChoice, in workData);
-                ConsoleInteraction.PrintData(in resultData);
+                ConsoleInteraction.PrintData(in resultData, ConstantItems.visibleOptions[menuChoice - 1]);
             } while (true);
             
-            ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint);
+            ConsoleInteraction.MessagesWriter(SystemMessages.ExitPoint, 1);
         } while (Console.ReadKey(true).Key != ConsoleKey.Q);
     }
 

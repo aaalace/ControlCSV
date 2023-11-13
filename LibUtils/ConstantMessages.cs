@@ -6,21 +6,24 @@ public static class SystemMessages
     public const string ExitPoint = "Press Q to finish | Press any other key to continue";
     public const string BeforePathGetting = "Type absolute path:";
     public const string BeforeFileNameGetting = "Type filename:";
-    public const string MenuChoices = "Menu:\n" + 
-                                      "1. Select by CoverageArea\n" +
-                                      "2. Select by ParkName\n" +
-                                      "3. Select by AdmArea (1st input) and CoverageArea (2nd input)\n" +
-                                      "4. Sort by Name (alphabetical order)\n" +
-                                      "5. Sort by CoverageArea (increasing order)\n" +
-                                      "6. Close and save current file\n" +
-                                      "7. Close current file !without save!";
+    public const string MenuTitle = "Menu:";
+    public static readonly string[] MenuChoices = { 
+        "Select by CoverageArea", 
+        "Select by ParkName", 
+        "Select by AdmArea and CoverageArea",
+        "Sort by Name (alphabetical order)",
+        "Sort by CoverageArea (increasing order)",
+        "Close and save current file",
+        "Close current file !without save!"
+    };
     public const string BeforeSelection = "Value for selection:";
     public const string EmptyResult = "The set of current values is empty";
 }
 
 public static class ErrorMessages
 {
-    public const string PathError = "Path error";
+    public const string PathError = "Path error, try again";
+    public const string CantSaveEmpty = "You cant save empty file";
     public const string MenuTypeError = "Menu type error";
     public const string MenuAreaError = "Menu area error";
     public const string CustomOpenFileError = "File not found or file contains incorrect data";
