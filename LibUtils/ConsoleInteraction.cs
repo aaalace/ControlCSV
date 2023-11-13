@@ -18,7 +18,7 @@ public static class ConsoleInteraction
     }
     
     // Gets nPath.
-    public static string GetNPath()
+    public static string GetNPath(out bool beenExist)
     {
         MessagesWriter(SystemMessages.BeforeFileNameGetting, 1);
         string nPath;
@@ -26,9 +26,14 @@ public static class ConsoleInteraction
         {
             try
             {
+                beenExist = false;
                 string? inputPath = Console.ReadLine();
                 nPath = inputPath ?? throw new ArgumentNullException(nameof(inputPath));
-                var myFile = File.Open(inputPath, FileMode.Open);
+                if (File.Exists(nPath))
+                {
+                    beenExist = true;
+                }
+                var myFile = File.Open(inputPath, FileMode.OpenOrCreate);
                 myFile.Close();
                 break;
             }

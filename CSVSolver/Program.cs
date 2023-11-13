@@ -64,8 +64,8 @@ public static class Program
                                 ConsoleInteraction.MessagesWriter(ErrorMessages.CantSaveEmpty, 2);
                                 break;
                             case 3:
-                                string nPath = ConsoleInteraction.GetNPath();
-                                CsvProcessing.Write(pushData[2], nPath);
+                                string nPath = ConsoleInteraction.GetNPath(out bool beenExist);
+                                CsvProcessing.Write(pushData[2], nPath, beenExist);
                                 break;
                             case > 3:
                                 CsvProcessing.Write(pushData);

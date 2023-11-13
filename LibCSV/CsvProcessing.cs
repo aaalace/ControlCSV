@@ -82,11 +82,11 @@ public static class CsvProcessing
         }
     }
 
-    public static void Write(string strData, string nPath)
+    public static void Write(string strData, string nPath, bool beenExits = false)
     {
         try
         {
-            if (File.Exists(nPath))
+            if (beenExits)
             {
                 using StreamWriter file = new(nPath, append: true);
                 file.WriteLine(strData);
@@ -105,9 +105,8 @@ public static class CsvProcessing
             remadeArr[2] = strData;
             File.WriteAllLines(nPath, contents: remadeArr);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Console.Write(e);
             ConsoleInteraction.MessagesWriter(ErrorMessages.WriteError, 2);
         }
     }
